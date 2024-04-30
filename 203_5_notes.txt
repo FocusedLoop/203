@@ -1,0 +1,19 @@
+ ¬(∃x ∈ Z (x + x^2 ≥ 0))
+ ¬(∃x p(x) = Vx  ¬p(x)
+Vx(x+x^2 < 0)
+1 < 0 : false
+
+
+¬(∀x ∈ Z (x^2 + 4x ≥ 0))
+¬(Vxp(x)) = ∃x ¬p(x)
+∃x(x^2+4x < 0)
+(-1)^2 + 4(-1) = 1-4 = -3 < 0 : true
+
+
+p(y) ∧ (y ∈ S) |=  ∃y ∈ S p(y)
+P(y) has an RSA and is a bartender  |= ∃y bartenders have RSA's
+
+(∀x ∈ S p(x)) ∧ (y ∈ S) |= p(y)
+All students are studying and p(x) is a student
+|= p(x) is studying
+
