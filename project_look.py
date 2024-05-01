@@ -26,6 +26,8 @@ def gamesOK(games):
             connections[player2] = set()
         connections[player1].add(player2)
         connections[player2].add(player1)
+        
+    print(connections)
 
     #checking the required property for each pair of distinct players
     players = list(connections.keys())
@@ -140,3 +142,7 @@ def ranking(games):
                 return None
 
     return ranking
+
+games = { ( " Alice " , " Bob " ) , ( " Charlie " , " Bob " ) }
+
+print(gamesOK(games))
