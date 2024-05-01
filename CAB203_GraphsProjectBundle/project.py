@@ -4,10 +4,12 @@ import csv
 
 
 def gamesOK(games):
+    #Degree, Connected
+    #Distance
+    #bipartition, minColouring
     
-    # 
-    for game in games:
-        player_1, player_2 = game
+    #pathFromTree
+    
        
        
 
