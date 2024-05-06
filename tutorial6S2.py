@@ -61,7 +61,7 @@ def transitive(R: set) -> bool:
 def checkFunction(R,a):
     return len({b for (a2,b) in R if a2 == a})
 
-def isfunction(R: set, A: set,B set) -> (bool,bool):
+def isfunction(R: set, A: set,B: set) -> (bool,bool):
     """
     This function takes a relation R, a set A, and a set B and returns (a, b) where a is True if the relation is a function from A to B, otherwise False, and b is True if the relation is a function from A to B and has an inverse, otherwise False.
 

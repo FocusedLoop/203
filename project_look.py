@@ -8,9 +8,9 @@ from collections import defaultdict
 # python test_project.py
 # or
 # python3 test_project.py
-# 
+#
 # you can install pytest with
-# pip install pytest 
+# pip install pytest
 # Then you can run
 # pytest test_project.py
 
@@ -18,7 +18,7 @@ def gamesOK(games):
     connections = {}    #create a dictionary called connections
 
     #populate the connections dictionary
-    for game in games:                      
+    for game in games:
         player1, player2 = game             #game consists of two players
         if player1 not in connections:
             connections[player1] = set()
@@ -26,6 +26,8 @@ def gamesOK(games):
             connections[player2] = set()
         connections[player1].add(player2)
         connections[player2].add(player1)
+
+    print(connections)
 
     #checking the required property for each pair of distinct players
     players = list(connections.keys())
@@ -62,7 +64,7 @@ def potentialReferees(refereecsvfilename, player1, player2):
             conflicts = [conflict for conflict in row[1:] if conflict]  #filter out empty strings
             if player1 not in conflicts and player2 not in conflicts and row[0] != player1 and row[0] != player2:
                 referees.add(row[0])  #add referee to the set
-    
+
     return referees
 
 
@@ -140,3 +142,7 @@ def ranking(games):
                 return None
 
     return ranking
+
+games = { ( " Alice " , " Bob " ) , ( " Charlie " , " Bob " ) }
+
+print(gamesOK(games))
