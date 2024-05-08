@@ -49,9 +49,22 @@ def gamesOK(games):
     # E = games
     # u = player
     opponents = {}
+    first = list(games)[0]
+    # Check if they have 2 players in common
     for player in sorted(players):
+        print(player)
+        print(first)
         opponents[player] = (graphs.N(players, games, player))
-    print(opponents)
+        #print(opponents[player])
+        #print(graphs.N(players,games, list(opponents[player])[0]))
+        #print(graphs.N(players,games, list(opponents[player])[1]))
+        #if not graphs.connected(graphs.NS(players,games, opponents[player]), games):
+            #print(graphs.N(players, games, player))
+            #print(graphs.NS(players,games, opponents[player]))
+            #print(list(opponents[player])[0])
+            #return False
+        #if graphs.N(players,games, list(opponents[player])[0]) != graphs.N(players,games, list(opponents[player])[1]):
+            #return False
     
     # All games have the same number of games
     opponent_size = graphs.degree(opponents, games, (list(opponents.keys()))[0])# arbitrary?
@@ -83,8 +96,9 @@ def scores(p, s, c, games):
    pass
 
 games = { ( " Alice " , " Bob " ) , ( " Charlie " , " Bob " ) }
-#games = { ( " A ", " B " ), (" A ", " C "), (" B ", " D "), (" C ", " D "), (" B ", " C ") }
-games = { ( " A ", " B " ), ( " C ", " D " ) }
+#games = { ( " A ", " B " ), (" B ", " C "), (" C ", " D "), (" D ", " A ") }
+#games = { ( " A ", " B " ), ( " C ", " D " ) }
+#games = { (0, 1), (1, 2), (2, 3), (3, 4), (4, 0) }
 #games = { ( " A ", " C " ), ( " A ", " D " ), ( " B ", " C " ), ( " B ", " D ") }
 
 print(gamesOK(games))
