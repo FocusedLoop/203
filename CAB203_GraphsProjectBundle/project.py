@@ -36,6 +36,7 @@ def gamesOK(games):
     #graphs.isIndependentSet()
     
     #NEW CODE
+    # Evey player needs to play against or they need 2 games
     # List all the players
     first_elements = {player_1 for (player_1, player_2) in games}
     second_elements = {player_2 for (player_1, player_2) in games}
