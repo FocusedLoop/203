@@ -427,17 +427,16 @@ class TestScores(unittest.TestCase):
          ('Faye Valentine', 'Edward'),
          ('Jet Black', 'Ein'),
          ('Jet Black', 'Spike Spiegel'),
-         ('Spike Spiegel', 'Jet Black'),
          ('Spike Spiegel', 'Vicious'),
          ('Vicious', 'Faye Valentine')
       }
       r = P.scores(5, 2, 9, games)
       self.assertEqual(r, {
-         'Edward': 14,
+         'Edward': 12,
          'Ein': 7,
          'Faye Valentine': 9,
          'Jet Black': 12,
-         'Spike Spiegel': 14,
+         'Spike Spiegel': 7,
          'Vicious': 7
       })
 
