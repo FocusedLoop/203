@@ -326,3 +326,31 @@ gameGroups = [
 # Output ordered game groups
 print(order_games(assignedReferees, gameGroups))
 #Question 5
+# Define the vertices and edges
+V = { 's', 'v1', 'v2', 't' }
+E = { ('s', 'v1'), ('s', 'v2'), ('v1', 'v2'), ('v1', 't'), ('v2', 't') }
+w = { ('s', 'v1'): 10, ('s', 'v2'): 5, ('v1', 'v2'): 15, ('v1', 't'): 10, ('v2', 't'): 10 }
+
+# Define source and sink
+s = 's'
+d = 't'
+
+# Initialize the flow to zero for all edges
+f = { e: 0 for e in E }
+
+# Find an augmenting path
+path = augmentingPath(V, E, w, f, s, d)
+print("Augmenting Path:", path)
+
+# Augment the flow along the augmenting path
+if path:
+    f = augmentFlow(path, f, w)
+    print("Flow after augmentation:", f)
+
+# Compute the maximum flow
+max_flow = maxFlow(V, E, w, s, d)
+print("Maximum Flow:", max_flow)
+
+# Total flow into the sink (which will be the maximum flow value)
+total_flow = sum(max_flow[(u, 't')] for u in V if (u, 't') in max_flow)
+print("Total Flow into sink:", total_flow)
