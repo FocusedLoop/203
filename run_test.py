@@ -325,6 +325,7 @@ gameGroups = [
 
 # Output ordered game groups
 print(order_games(assignedReferees, gameGroups))
+
 #Question 5
 # Define the vertices and edges
 V = { 's', 'v1', 'v2', 't' }
@@ -354,3 +355,149 @@ print("Maximum Flow:", max_flow)
 # Total flow into the sink (which will be the maximum flow value)
 total_flow = sum(max_flow[(u, 't')] for u in V if (u, 't') in max_flow)
 print("Total Flow into sink:", total_flow)
+
+#Question 5.2
+def scores(primary, secondary, capacity, games):
+    from collections import defaultdict, deque
+
+    # Parse the game results
+    wins = defaultdict(set)
+    losses = defaultdict(set)
+    for winner, loser in games:
+        wins[winner].add(loser)
+        losses[loser].add(winner)
+    
+    players = set(wins.keys()).union(set(losses.keys()))
+    
+    # Define the flow network
+    V = players.union({'s', 't'})
+    E = set()
+    w = defaultdict(int)
+
+    # Add edges from source 's' to all players with primary scores
+    for player in players:
+        E.add(('s', player))
+        w[('s', player)] = primary * len(wins[player])
+    
+    # Add edges between players based on secondary scores
+    for winner in wins:
+        for loser in wins[winner]:
+            E.add((winner, loser))
+            w[(winner, loser)] = secondary * len(wins[loser] - {winner})
+
+    # Add edges from all players to sink 't'
+    for player in players:
+        E.add((player, 't'))
+        w[(player, 't')] = capacity
+
+    # Compute the maximum flow
+    f = maxFlow(V, E, w, 's', 't')
+
+    # Extract the scores from the flow
+    scores = defaultdict(int)
+    for u, v in f:
+        if u != 's' and v != 't' and f[(u, v)] > 0:
+            scores[u] += f[(u, v)]
+            scores[v] += f[(u, v)]
+
+    return dict(scores)
+
+# Example usage:
+games = {
+    ('Edward', 'Vicious'),
+    ('Faye Valentine', 'Ein'),
+    ('Faye Valentine', 'Vicious'),
+    ('Jet Black', 'Edward'),
+    ('Jet Black', 'Ein'),
+    ('Jet Black', 'Vicious'),
+    ('Spike Spiegel', 'Edward'),
+    ('Spike Spiegel', 'Ein'),
+    ('Spike Spiegel', 'Faye Valentine')
+}
+
+r = scores(4, 2, 8, games)
+
+#Question 5.3
+def scores(primary, secondary, capacity, games):
+    from collections import defaultdict, deque
+    
+    # Parse the game results
+    wins = defaultdict(set)
+    losses = defaultdict(set)
+    for winner, loser in games:
+        wins[winner].add(loser)
+        losses[loser].add(winner)
+    
+    players = set(wins.keys()).union(set(losses.keys()))
+    
+    # Define the flow network
+    V = players.union({'s', 't'})
+    E = set()
+    w = defaultdict(int)
+
+    # Add edges from source 's' to all players with primary scores
+    for player in players:
+        E.add(('s', player))
+        w[('s', player)] = primary * len(wins[player])
+    
+    # Add edges between players based on secondary scores
+    for winner in wins:
+        for loser in wins[winner]:
+            E.add((winner, loser))
+            w[(winner, loser)] = secondary * len(wins[loser] - {winner})
+
+    # Add edges from all players to sink 't'
+    for player in players:
+        E.add((player, 't'))
+        w[(player, 't')] = capacity
+    
+    # Define the functions for flow calculations using the given library functions
+    def edgeCap(w, f, u, v):
+        if (u, v) in f:
+            return w[(u, v)] - f[(u, v)]
+        return f[(v, u)]
+
+    def augmentingPathCapacity(path, f, w):
+        cap = edgeCap(w, f, path[0], path[1])
+        for u, v in zip(path[1:-1], path[2:]):
+            ecap = edgeCap(w, f, u, v)
+            cap = min(cap, ecap)
+        return cap
+
+    def augmentFlow(path, f, w):
+        g = dict(f)
+        a = augmentingPathCapacity(path, f, w)
+        for u, v in zip(path[:-1], path[1:]):
+            if (u, v) in f:
+                g[(u, v)] = f[(u, v)] + a
+            else:
+                g[(v, u)] = f[(v, u)] - a
+        return g
+
+    def maxFlow(V, E, w, s, d):
+        f = {e: 0 for e in E}
+        while (path := augmentingPath(V, E, w, f, s, d)) is not None:
+            f = augmentFlow(path, f, w)
+        return f
+    
+    # Compute the maximum flow
+    f = maxFlow(V, E, w, 's', 't')
+
+    # Extract the scores from the flow
+    scores = defaultdict(int)
+    for u, v in f:
+        if u != 's' and v != 't' and f[(u, v)] > 0:
+            scores[u] += f[(u, v)]
+            scores[v] += f[(u, v)]
+
+    return dict(scores)
+
+# Example usage:
+games = {
+    ('Alice', 'Bob'),
+    ('Alice', 'Dave'),
+    ('Bob', 'Charlie'),
+    ('Dave', 'Charlie')
+}
+
+r = scores(3, 2, 4, games)
