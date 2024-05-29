@@ -1,0 +1,61 @@
+Question 1:
+
+1 {x ∈ Z} pre condition
+2 {z ∈ N} pre condition
+3 if x >= 0:
+4 	{x ≥ 0} choice rule, condition true
+5 	{z ∈ N} choice, pre condition carried forawrd
+6 	{xz ≥ 0} maths, and implication rule
+7 	y = xz
+8 	{y ≥ 0} assignment rule
+9 else:
+10 	{x < 0} choise rule, condition false
+11 	{z ∈ N} choice, pre condition carried forawrd
+12 	{xz < 0} maths, and implication rule
+13 	{−xz ≥ 0} maths, and implication rule
+14 	y = -xz
+15 	{y ≥ 0} assignment rule
+16 {y ≥ 0} post condition of both if and else block
+
+Question 2:
+1 Inputs: x, y
+2 {x, y ∈ R } pre condition
+3 if x >= y:
+4 	{x ≥ y} choice rule, condition true
+5 	{x ≥ x} implication rule and maths
+6	{x = x} implication rule and maths
+7 	max = x
+8 	{max ≥ y} assignment rule
+9 	{max ≥ x} assignment rule
+10	{max = x} assignment rule
+11	{max = x ∨ max = y} implication rule
+12 else:
+13 	{x < y} choice rule, condition false
+14 	{y ≥ x} implication rule and maths
+15 	{y ≥ y} implication rule and maths
+16 	{y = y} implication rule and maths
+17 	max = y
+18 	{max ≥ x} assignment rule
+19 	{max ≥ y} assignment rule
+20 	{max = y} assignment rule
+21 	{max = x ∨ max = y} implication rule
+22 {max ≥ x} post condition of both if and else block
+23 {max ≥ y} post condition of both if and else block
+24 {max = x ∨ max = y} implication rule
+
+Question 3:
+1 {x ≥ 0} pre condition
+2 {0 ≥ 0} maths and implication rule
+3 y = 0
+4 {y ≥ 0} assignment rule
+5 while x >= 0:
+6 	{y ≥ 0} loop rule, invariant of loop block
+7 	{x ≥ 0} loop rule, condition true
+8 	{(x ≥ 0 ∧ y ≥ 0) → x + y ≥ 0} maths and implication rule
+9 	{x + y ≥ 0} implication rule
+10 	y = x + y 
+11 	x = x - 1
+12 	{y ≥ 0} assignment rule
+13 {x < 0} loop rule, condition false
+14 {y ≥ 0} loop rule, invariant of loop block and post condition
+
